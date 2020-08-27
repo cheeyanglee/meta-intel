@@ -1,0 +1,30 @@
+From c929200e73eefe862122c7633299ccea44753c14 Mon Sep 17 00:00:00 2001
+From: Lee Chee Yang <chee.yang.lee@intel.com>
+Date: Thu, 27 Aug 2020 14:45:22 +0800
+Subject: [PATCH] visa: dont track line number
+
+track #line directive is causing reproducibility issue on 
+intel-graphics-compiler-src package. so dont track them.
+
+Upstream-Status: Inappropriate 
+Signed-off-by: Lee Chee Yang <chee.yang.lee@intel.com>
+---
+ visa/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/visa/CMakeLists.txt b/visa/CMakeLists.txt
+index 9c169592..f9f0c06c 100644
+--- a/visa/CMakeLists.txt
++++ b/visa/CMakeLists.txt
+@@ -105,7 +105,7 @@ endif()
+ # Set up the bison and flex targets. These commands will set up commands to generate the appropriate
+ # source files from the input grammars. It will also set up the dependencies correctly for any
+ # library or executable that uses the generated source
+-BISON_TARGET(CISAParser CISA.y ${CMAKE_CURRENT_BINARY_DIR}/CISA.tab.cpp COMPILE_FLAGS "-vt -p CISA")
++BISON_TARGET(CISAParser CISA.y ${CMAKE_CURRENT_BINARY_DIR}/CISA.tab.cpp COMPILE_FLAGS "-vt -p CISA --no-lines")
+ FLEX_TARGET(CISAScanner CISA.l ${CMAKE_CURRENT_BINARY_DIR}/lex.CISA.cpp COMPILE_FLAGS "-PCISA ${WIN_FLEX_FLAG}")
+ ADD_FLEX_BISON_DEPENDENCY(CISAScanner CISAParser)
+ 
+-- 
+2.25.1
+
