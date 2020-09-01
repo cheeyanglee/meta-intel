@@ -11,11 +11,18 @@ LIC_FILES_CHKSUM = "file://IGC/BiFModule/Implementation/ExternalLibraries/libclc
 SRC_URI = "git://github.com/intel/intel-graphics-compiler.git;protocol=https; \
            file://0001-skip-execution-of-ElfPackager.patch \
            file://link-to-LLVMGenXIntrinsics.patch \
+           file://improve_src_package_reproducibility.patch \
           "
 
 SRCREV = "3623209b10b357ddb3a3d6eac3551c53ebc897f7"
 
 S = "${WORKDIR}/git"
+
+# patch improve_src_package_reproducibility.patch added YOCTO_BUILD_PATH to CMakeLists.TXT.
+# YOCTO_BUILD_PATH need to replace with full path to build directory
+do_configure_prepend() {
+  sed -i -e 's|YOCTO_BUILD_PATH|'${B}'|g' ${S}/visa/CMakeLists.txt
+}
 
 inherit cmake
 
