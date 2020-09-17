@@ -1,0 +1,38 @@
+From 89f1992f86bab5db17d9784864d359831540ecfd Mon Sep 17 00:00:00 2001
+From: Lee Chee Yang <chee.yang.lee@intel.com>
+Date: Mon, 14 Sep 2020 13:31:57 +0800
+Subject: [PATCH] test-2
+
+Signed-off-by: Lee Chee Yang <chee.yang.lee@intel.com>
+---
+ cmake/cross_compile/cross_compiled_func.cmake     | 1 -
+ inference-engine/src/mkldnn_plugin/CMakeLists.txt | 2 ++
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/cmake/cross_compile/cross_compiled_func.cmake b/cmake/cross_compile/cross_compiled_func.cmake
+index 9939eee44..7824624b4 100644
+--- a/cmake/cross_compile/cross_compiled_func.cmake
++++ b/cmake/cross_compile/cross_compiled_func.cmake
+@@ -149,7 +149,6 @@ function(_add_dispatcher_to_target TARGET HEADER FUNC_NAME NAMESPACE ARCH_SET)
+     set(_GEN_ARGS_LIST
+             -DXARCH_FUNC_NAME="${X_NAME}"
+             -DXARCH_NAMESPACES="${NAMESPACE}"
+-            -DXARCH_API_HEADER="${CMAKE_CURRENT_SOURCE_DIR}/${HEADER}"
+             -DXARCH_DISP_FILE="${CMAKE_CURRENT_BINARY_DIR}/${DISPATCHER_SOURCE}"
+             -DXARCH_SET="${ARCH_SET}"
+     )
+diff --git a/inference-engine/src/mkldnn_plugin/CMakeLists.txt b/inference-engine/src/mkldnn_plugin/CMakeLists.txt
+index 297783da8..50f648852 100644
+--- a/inference-engine/src/mkldnn_plugin/CMakeLists.txt
++++ b/inference-engine/src/mkldnn_plugin/CMakeLists.txt
+@@ -190,6 +190,8 @@ cross_compiled_file(${TARGET_NAME}
+         NAMESPACE   InferenceEngine::Extensions::Cpu::XARCH
+ )
+
++target_include_directories(${CMAKE_CURRENT_SOURCE_DIR}/nodes/argmax_imp.cpp PRIVATE "$ENV{S}/inference-engine/src/mkldnn_plugin/nodes/argmax_imp.hpp")
++target_include_directories(${CMAKE_CURRENT_SOURCE_DIR}/nodes/proposal_imp.cpp PRIVATE "$ENV{S}/inference-engine/src/mkldnn_plugin/nodes/proposal_imp.hpp")
+ #  add test object library
+
+ add_library(${TARGET_NAME}_obj OBJECT ${SOURCES} ${HEADERS})
+--
+2.25.1
