@@ -15,7 +15,10 @@ SRC_URI = "git://github.com/openvinotoolkit/openvino.git;protocol=git;branch=rel
            file://0004-fix-compilation-errors.patch \
            file://0005-cldnn-fix-inclusion-of-headers.patch \
            file://0001-dont-install-licenses-and-version-file.patch;patchdir=ngraph \
-           "
+           file://test.patch \
+"
+
+export S
 
 SRCREV = "023e7c2c3f8a8ac83564db09799d2049115d9cf6"
 SRCREV_mkl = "2706f56ebab54415be48add2751072065f4b52ab"

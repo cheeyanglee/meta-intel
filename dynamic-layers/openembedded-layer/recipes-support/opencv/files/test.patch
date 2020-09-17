@@ -1,0 +1,38 @@
+From 167e2e233dfd983299ff072442d00a8054f09f4d Mon Sep 17 00:00:00 2001
+From: Lee Chee Yang <chee.yang.lee@intel.com>
+Date: Mon, 14 Sep 2020 13:31:57 +0800
+Subject: [PATCH] test1
+
+Signed-off-by: Lee Chee Yang <chee.yang.lee@intel.com>
+---
+ cmake/cross_compile/cross_compiled_disp_gen.cmake | 2 +-
+ cmake/cross_compile/cross_compiled_func.cmake     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+diff --git a/cmake/cross_compile/cross_compiled_disp_gen.cmake b/cmake/cross_compile/cross_compiled_disp_gen.cmake
+index a0ed53cf6..f4723685c 100644
+--- a/cmake/cross_compile/cross_compiled_disp_gen.cmake
++++ b/cmake/cross_compile/cross_compiled_disp_gen.cmake
+@@ -21,7 +21,7 @@ set(_CPU_CHECK_AVX2    "with_cpu_x86_avx2()")
+ set(_CPU_CHECK_AVX512F "with_cpu_x86_avx512f()")
+
+ function(_generate_dispatcher)
+-    _find_signature_in_file(${XARCH_API_HEADER} ${XARCH_FUNC_NAME} SIGNATURE)
++    _find_signature_in_file($ENV{S}/inference-engine/src/mkldnn_plugin/${XARCH_API_HEADER} ${XARCH_FUNC_NAME} SIGNATURE)
+     _generate_call_line_from_signature("${SIGNATURE}" CALL_LINE)
+
+     string(REPLACE " " ";" XARCH_SET "${XARCH_SET}")
+diff --git a/cmake/cross_compile/cross_compiled_func.cmake b/cmake/cross_compile/cross_compiled_func.cmake
+index 9939eee44..c581daef9 100644
+--- a/cmake/cross_compile/cross_compiled_func.cmake
++++ b/cmake/cross_compile/cross_compiled_func.cmake
+@@ -149,7 +149,7 @@ function(_add_dispatcher_to_target TARGET HEADER FUNC_NAME NAMESPACE ARCH_SET)
+     set(_GEN_ARGS_LIST
+             -DXARCH_FUNC_NAME="${X_NAME}"
+             -DXARCH_NAMESPACES="${NAMESPACE}"
+-            -DXARCH_API_HEADER="${CMAKE_CURRENT_SOURCE_DIR}/${HEADER}"
++            -DXARCH_API_HEADER="./${HEADER}"
+             -DXARCH_DISP_FILE="${CMAKE_CURRENT_BINARY_DIR}/${DISPATCHER_SOURCE}"
+             -DXARCH_SET="${ARCH_SET}"
+     )
+--
+2.25.1
