@@ -14,7 +14,9 @@ SECTION = "x11"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=b148fc8adf19dc9aec17cf9cd29a9a5e"
 
-SRC_URI = "git://github.com/intel/libva-utils.git;branch=v2.13-branch;protocol=https"
+SRC_URI = "git://github.com/intel/libva-utils.git;branch=v2.13-branch;protocol=https \
+           file://run-ptest \
+"
 SRCREV = "7bad184b2cf2ffaf4fb3cc71d4df63d7b142d592"
 S = "${WORKDIR}/git"
 
@@ -22,7 +24,9 @@ UPSTREAM_CHECK_GITTAGREGEX = "(?P<pver>(\d+(\.\d+)+))"
 
 DEPENDS = "libva"
 
-inherit meson pkgconfig features_check
+inherit meson pkgconfig features_check ptest
+
+EXTRA_OEMESON += "-Dtests=true"
 
 # depends on libva which requires opengl
 REQUIRED_DISTRO_FEATURES = "opengl"
@@ -33,3 +37,9 @@ PACKAGECONFIG[wayland] = "-Dwayland=true, -Dwayland=false,wayland-native wayland
 
 PROVIDES = "libva-utils"
 RPROVIDES:${PN} += "libva-utils"
+
+do_install_ptest(){
+	install -m 0755 ${B}/test/test_va_api ${D}${PTEST_PATH}
+}
+
+RDEPENDS:${PN}-ptest = "bash libva intel-vaapi-driver"

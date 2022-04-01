@@ -1,0 +1,19 @@
+#/bin/sh
+
+LIBVA_DRIVER_PATH="/usr/lib/dri/"
+
+for driver in `find $LIBVA_DRIVER_PATH -type f -printf "%f\n" -name '*.so'`; do
+  if [[ $driver == *"drv_video.so" ]]; then
+
+    d=$( echo $driver  | sed 's/_drv_video.so//g' )
+
+    LIBVA_DRIVER_NAME=$d ./test_va_api
+    if [ $? -eq 0 ]; then
+      echo 'PASS: test_va_api with driver $d'
+    else
+      echo 'FAIL: test_va_api with driver $d'
+    fi
+
+  fi
+done
+
