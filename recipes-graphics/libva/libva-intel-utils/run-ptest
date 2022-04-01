@@ -1,0 +1,9 @@
+#!/bin/sh
+
+test_va_api
+if [ $? -eq 0 ]; then
+  echo 'PASS: test_va_api'
+else
+  echo 'FAIL: test_va_api'
+fi
+
