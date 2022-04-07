@@ -1,0 +1,28 @@
+From f5d228475e216725279193f01c1d8c75023e9129 Mon Sep 17 00:00:00 2001
+From: Lee Chee Yang <chee.yang.lee@intel.com>
+Date: Thu, 7 Apr 2022 14:08:21 +0800
+Subject: [PATCH] dont trigger unit test
+
+the unit test build for target machine
+unable to run it on build machine.
+
+Upstream-Status: innappropriate
+
+Signed-off-by: Lee Chee Yang <chee.yang.lee@intel.com>
+---
+ dispatcher/test/unit/CMakeLists.txt | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/dispatcher/test/unit/CMakeLists.txt b/dispatcher/test/unit/CMakeLists.txt
+index b3fb08a..976606f 100644
+--- a/dispatcher/test/unit/CMakeLists.txt
++++ b/dispatcher/test/unit/CMakeLists.txt
+@@ -25,5 +25,3 @@ target_link_libraries(${PROJECT_NAME} PUBLIC GTest::gtest VPL::dispatcher)
+ target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+ 
+ include(GoogleTest)
+-gtest_discover_tests(${PROJECT_NAME} PROPERTIES ENVIRONMENT
+-                     ONEVPL_SEARCH_PATH=$<TARGET_FILE_DIR:vplstubrt>)
+-- 
+2.25.1
+

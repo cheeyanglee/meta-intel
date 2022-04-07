@@ -1,0 +1,40 @@
+#!/bin/sh
+
+./mfxinit-test
+if [ $? -eq 0 ]; then
+  echo 'PASS: mfxinit-test'
+else
+  echo 'FAIL: mfxinit-test'
+fi
+
+./vpl-timing
+if [ $? -eq 0 ]; then
+  echo 'PASS: vpl-timing'
+else
+  echo 'FAIL: vpl-timing'
+fi
+
+./oneVPLTests -disp:sw
+if [ $? -eq 0 ]; then
+  echo 'PASS: oneVPLTests with CPU runtime'
+else
+  echo 'FAIL: oneVPLTests with CPU runtime'
+fi
+
+
+./oneVPLTests -disp:gpu-all
+if [ $? -eq 0 ]; then
+  echo 'PASS: oneVPLTests with GPU oneVPL runtime'
+else
+  echo 'FAIL: oneVPLTests with GPU oneVPL runtime'
+fi
+
+
+./oneVPLTests -disp:gpu-msdk
+if [ $? -eq 0 ]; then
+  echo 'PASS: oneVPLTests with GPU MSDK runtime'
+else
+  echo 'FAIL: oneVPLTests with GPU MSDK runtime'
+fi
+
+
