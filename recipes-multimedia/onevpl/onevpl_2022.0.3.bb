@@ -15,19 +15,34 @@ SRC_URI = "git://github.com/oneapi-src/oneVPL.git;protocol=https;branch=master \
             file://0003-sample_misc-use-wayland-dmabuf-to-render-nv12.patch \
             file://0001-sample_common-Fix-regression-of-missing-mutex-init.patch \
             file://0001-sample_common-Fix-missing-UYUV-fourcc-enc-input.patch \
+            file://0001-dont-trigger-unit-test.patch \
+            file://run-ptest \
             "
 SRCREV = "efc259f8b7ee5c334bca1a904a503186038bbbdd"
 S = "${WORKDIR}/git"
 
-inherit cmake
+inherit cmake ptest
 DEPENDS += "libva pkgconfig-native"
 
 PACKAGECONFIG ??= "tools"
 PACKAGECONFIG[tools] = "-DBUILD_TOOLS=ON, -DBUILD_TOOLS=OFF, wayland wayland-native wayland-protocols"
 
+EXTRA_OECMAKE += " ${@bb.utils.contains('PTEST_ENABLED','1', '-DBUILD_TESTS=ON', '', d)} "
+
+do_configure:append(){
+        cd ${B}
+        sed -i 's/\/Release/Release/g' build.ninja
+}
+
 do_install:append() {
         mkdir -p ${D}${datadir}/oneVPL/samples
         mv ${D}${bindir}/sample_* ${D}${datadir}/oneVPL/samples
+}
+
+do_install_ptest() {
+        install -m 0755 ${B}/mfxinit-test ${D}${PTEST_PATH}
+        install -m 0755 ${B}/oneVPLTests ${D}${PTEST_PATH}
+        install -m 0755 ${B}/vpl-timing ${D}${PTEST_PATH}
 }
 
 COMPATIBLE_HOST = '(x86_64).*-linux'
