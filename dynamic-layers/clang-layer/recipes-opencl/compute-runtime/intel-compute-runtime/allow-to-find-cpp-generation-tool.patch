@@ -12,22 +12,22 @@ Signed-off-by: Dongwon Kim <dongwon.kim@intel.com>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/shared/source/built_ins/kernels/CMakeLists.txt b/shared/source/built_ins/kernels/CMakeLists.txt
-index 8ac6faf4d6..031e128149 100644
+index e2c2814041..037473a947 100644
 --- a/shared/source/built_ins/kernels/CMakeLists.txt
 +++ b/shared/source/built_ins/kernels/CMakeLists.txt
-@@ -81,9 +81,9 @@ function(compile_builtin core_type platform_type builtin bits builtin_options mo
+@@ -90,9 +90,9 @@ function(compile_builtin core_type platform_it builtin bits builtin_options mode
        )
        add_custom_command(
                           OUTPUT ${OUTPUT_FILE_CPP}
--                         COMMAND $<TARGET_FILE:cpp_generate_tool> --file ${BINARY_OUTPUT}.bin --output ${OUTPUT_FILE_CPP} --array ${mode}_${BASENAME} --platform ${platform_it_lower} --revision_id ${REVISION_ID}
-+                         COMMAND cpp_generate_tool --file ${BINARY_OUTPUT}.bin --output ${OUTPUT_FILE_CPP} --array ${mode}_${BASENAME} --platform ${platform_it_lower} --revision_id ${REVISION_ID}
+-                         COMMAND $<TARGET_FILE:cpp_generate_tool> --file ${BINARY_OUTPUT}.bin --output ${OUTPUT_FILE_CPP} --array ${mode}_${BASENAME} --device ${RELEASE_FILENAME}
++                         COMMAND cpp_generate_tool --file ${BINARY_OUTPUT}.bin --output ${OUTPUT_FILE_CPP} --array ${mode}_${BASENAME} --device ${RELEASE_FILENAME}
                           WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 -                         DEPENDS ${OUTPUT_FILES_BINARIES} $<TARGET_FILE:cpp_generate_tool>
 +                         DEPENDS ${OUTPUT_FILES_BINARIES} cpp_generate_tool
        )
        list(APPEND BUILTINS_COMMANDS "${OUTPUT_FILE_CPP}")
      else()
-@@ -134,9 +134,9 @@ function(generate_cpp_spirv builtin)
+@@ -142,9 +142,9 @@ function(generate_cpp_spirv builtin)
      )
      add_custom_command(
                         OUTPUT ${OUTPUT_FILE_CPP}
@@ -39,6 +39,3 @@ index 8ac6faf4d6..031e128149 100644
      )
      set(OUTPUT_LIST_CPP_FILES ${OUTPUT_LIST_CPP_FILES} ${OUTPUT_FILE_CPP} PARENT_SCOPE)
    else()
--- 
-2.37.3
-
