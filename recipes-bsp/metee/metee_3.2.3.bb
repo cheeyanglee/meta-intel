@@ -11,7 +11,7 @@ COMPATIBLE_HOST = '(i.86|x86_64).*-linux'
 inherit cmake
 
 SRC_URI = "git://github.com/intel/metee.git;branch=master;protocol=https"
-SRCREV = "0d6f19420bebaa92b0e3dcb6b81e352820f1f1cc"
+SRCREV = "2a90c2fd248abced1ebdb91ba495d3ef08cad969"
 
 S = "${WORKDIR}/git"
 
