@@ -13,6 +13,7 @@ SRC_URI = "git://github.com/intel/intel-graphics-compiler.git;protocol=https;nam
            git://github.com/KhronosGroup/SPIRV-Tools.git;protocol=https;destsuffix=git/SPIRV-Tools;name=spirv-tools;branch=main \
            git://github.com/KhronosGroup/SPIRV-Headers.git;protocol=https;destsuffix=git/SPIRV-Headers;name=spirv-headers;branch=main \
            file://0003-Improve-Reproducibility-for-src-package.patch \
+           file://0001-BiF-CMakeLists.txt-remove-opt-from-DEPENDS.patch \
            file://0001-external-SPIRV-Tools-change-path-to-tools-and-header.patch \
            "
 
