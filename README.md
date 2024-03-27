@@ -28,6 +28,6 @@ Dynamic additional dependencies:
 - [Tested Hardware](documentation/tested_hardware.md)
 - [Guidelines for submitting patches](documentation/submitting_patches.md)
 - [Reporting bugs](documentation/reporting_bugs.md)
-- [Maintainer](MAINTAINERS)
+- [Maintainers](documentation/MAINTAINERS.md)
 
 
